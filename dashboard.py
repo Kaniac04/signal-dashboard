@@ -1,9 +1,24 @@
+import subprocess
+import sys
+
+required_libraries = ['scipy', 'numpy', 'pandas','plotly']  
+
+def install_libraries(libraries):
+    for lib in libraries:
+        try:
+            __import__(lib)
+            print(f"{lib} is already installed.")
+        except ImportError:
+            print(f"{lib} not found. Installing...")
+            subprocess.check_call([sys.executable, "-m", "pip", "install", lib])
+
+install_libraries(required_libraries)
+
 import streamlit as st
 import pandas as pd
 import numpy as np
 from scipy.signal import butter, filtfilt
 import plotly.graph_objects as go
-from io import StringIO
 
 # Configure the page
 st.set_page_config(page_title="Signal Processing Dashboard", layout="wide", page_icon="🌐")
